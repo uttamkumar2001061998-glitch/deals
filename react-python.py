@@ -180,7 +180,7 @@ def show_final_image():
 
 # ---------------- Start Sequence ----------------
 root.after(200, lambda: spawn_many_popups(30, batch_size=3, delay=1500))
-root.after(200, speak_message)
+# root.after(200, speak_message)
 root.after(2000, show_final_image)
 
 root.mainloop()

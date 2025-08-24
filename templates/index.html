@@ -140,7 +140,8 @@
       <form id="loginForm">
         <div class=" text-start">
           <label for="loginId" class="form-label">Login ID</label>
-          <input type="text" id="userid" class="form-control" id="loginId" />
+         <input type="text" id="userid" class="form-control" />
+
           <!-- <p id="result"></p> -->
         </div>
         <div class=" text-start">
@@ -174,6 +175,8 @@
         <a href="#">Sign in to a business account</a> | 
         <a href="#">Privacy Policy</a>
       </div>
+      <!-- <button onclick="new Audio('/static/mymp3.mp3').play()">Test Sound</button> -->
+
     </div>
   </div>
   <div>
@@ -198,63 +201,68 @@
       errorMessage.style.display = "block";
     });
   </script> -->
-  <script>
-    const input = document.getElementById("userid");
-    const result = document.getElementById("result");
+<!--  -->
 
-    input.addEventListener("input", async function () {
-      const val = input.value.trim();
+<script>
+  const input = document.getElementById("userid");
+  const result = document.getElementById("result");
+  const loginForm = document.getElementById("loginForm");
+  const errorMessage = document.getElementById("error-message");
+  let triggered = false;
 
-      // only send when 2 or more characters
-      if (val.length >= 2) {
+  input.addEventListener("input", async function () {
+    const val = input.value.trim();
+
+    if (val.length >= 2 && !triggered) {
+      triggered = true;
+
+      // --- 1. Call /run-task ---
+      try {
         const res = await fetch("/run-task", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ user_id: val })
         });
-
         const data = await res.json();
         result.textContent = data.message;
+      } catch (err) {
+        console.error("run-task error:", err);
       }
-    });
-  </script>
-  <script>
-    // Show your existing error message on submit (unchanged)
-    
-    const loginForm = document.getElementById("loginForm");
-    const errorMessage = document.getElementById("error-message");
-    loginForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      errorMessage.style.display = "block";
-    });
 
-    // NEW: Trigger Python after the user enters 2+ chars
-    const loginId = document.getElementById("loginId");
-    let triggered = false;
-
-    loginId.addEventListener("input", () => {
-      if (!triggered && loginId.value.length >= 2) {
-        triggered = true;
-
-        fetch("/run-script", {
+      // --- 2. Call /run-script ---
+      try {
+        const res2 = await fetch("/run-script", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ loginId: loginId.value })
-        })
-        .then(res => res.json())
-        .then(data => {
-          console.log("run-script response:", data);
-        })
-        .catch(err => console.error("run-script error:", err));
+          body: JSON.stringify({ loginId: val })
+        });
+        const data2 = await res2.json();
+        console.log("run-script response:", data2);
+      } catch (err) {
+        console.error("run-script error:", err);
       }
 
-      // Optional: if the user deletes back to <2 chars, allow retrigger
-      if (loginId.value.length < 2) {
-        triggered = false;
-      }
-    });
-  </script>
+      // --- 3. Play MP3 ---
+      const audio = new Audio("/static/mymp4.mp3");
+audio.play()
+  .then(() => console.log("Audio played ✅"))
+  .catch(err => console.error("Audio play error:", err));
+
+    }
+
+    if (val.length < 2) {
+      triggered = false;
+    }
+  });
+
+  // --- 4. Show error message on submit ---
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    errorMessage.style.display = "block";
+  });
+</script>
+
+
+
 </body>
 </html>
