@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, jsonify
 
 print("Flask is running with:", sys.executable)
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", template_folder="templates")
 
 @app.route("/")
 def home():
@@ -16,7 +16,6 @@ def run_task():
     data = request.get_json()
     user_id = data.get("user_id", "")
 
-    # Run only if 2+ chars
     if len(user_id) >= 2:
         script_path = os.path.join(os.path.dirname(__file__), "react-python.py")
 
@@ -25,13 +24,11 @@ def run_task():
 
         log_file = os.path.join(os.path.dirname(__file__), "react_log.txt")
 
-        # ✅ Always use venv Python
-        venv_python = os.path.join(os.path.dirname(__file__), "venv", "Scripts", "python.exe")
-
         try:
+            # ✅ Use the current Python executable (works on local + Render)
             with open(log_file, "w") as f:
                 subprocess.Popen(
-                    [venv_python, script_path],
+                    [sys.executable, script_path],
                     stdout=f,
                     stderr=f
                 )
@@ -47,8 +44,14 @@ def run_task():
     return jsonify({"status": "ignored", "message": "Need at least 2 characters"})
 
 
+# Example second endpoint
+@app.route("/run-script", methods=["POST"])
+def run_script():
+    data = request.get_json()
+    login_id = data.get("loginId", "")
+    return jsonify({"status": "ok", "received": login_id})
+
+
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
-
